@@ -1,1 +1,1 @@
-# hp_filtr_iir
+# DSP high-pass filter
