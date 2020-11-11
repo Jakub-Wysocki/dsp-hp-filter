@@ -149,5 +149,3 @@ ipch/
 # Visual Studio 6 workspace options file
 
 *.opt
-*.atsln
-*.cproj
