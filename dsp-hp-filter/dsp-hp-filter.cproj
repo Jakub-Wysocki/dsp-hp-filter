@@ -120,6 +120,24 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="dac.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="dac.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="dsp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="dsp.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
