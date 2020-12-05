@@ -18,6 +18,8 @@ int main(void)
 {
 	struct FIR_filter myfilter;
 	
+	ADCInit();
+	
     /* Replace with your application code */
     while (1) 
     {
