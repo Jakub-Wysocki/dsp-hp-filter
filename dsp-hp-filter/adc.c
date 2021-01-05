@@ -5,12 +5,13 @@
  *  Author: kunek
  */ 
 
+#include <avr/io.h>
+
 #include "adc.h"
 
 void ADCInit()
 {
-	// Turn off digital inputs on pinsADC0-ADC5
-	DDRC &= ~(PC0);
+	// Turn off digital inputs on pins ADC0-ADC5
 	DIDR0 = 0;
 	
 	// Use ADC0 input, AVcc with capacitor at AREF voltage reference

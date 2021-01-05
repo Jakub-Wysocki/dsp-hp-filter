@@ -5,6 +5,7 @@
  *  Author: kunek
  */ 
 
+#include <avr/io.h>
 
 #ifndef DAC_H_
 #define DAC_H_
