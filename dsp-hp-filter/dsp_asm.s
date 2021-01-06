@@ -11,56 +11,56 @@
 	push r16
 	push r17
 
-	movw r30, r24 ; register Z points to filter struct
-	movw r26, r22 ; register X points to output
+	movw r30, r24 ; register Z points to filter struct (r25:r24 [1st argument] -> r31:r30 [Z])
+	movw r26, r22 ; register X points to output (r23:r22 [2nd argument] -> r27:r26 [X])
 	
 	;*	r18:r17:r16 = r23:r22 * r21:r20
 
 	;----------------------------------------;
 
 	; load node 3
-	ld r23, Z
-	ldd r22, Z+1
+	ldd r23, Z+1
+	ld r22, Z
 
 	; load coefficient 3
-	ldd r21, Z+8
-	ldd r20, Z+9
+	ldd r21, Z+9
+	ldd r20, Z+8
 
 	call muls16x16_24
 
 	;----------------------------------------;
 
 	; load node 2
-	ldd r23, Z+2
-	ldd r22, Z+3
+	ldd r23, Z+3
+	ldd r22, Z+2
 
 	; load coefficient 2
-	ldd r21, Z+10
-	ldd r20, Z+11
+	ldd r21, Z+11
+	ldd r20, Z+10
 
 	call mac16x16_24
 
 	;----------------------------------------;
 
 	; load node 1
-	ldd r23, Z+4
-	ldd r22, Z+5
+	ldd r23, Z+5
+	ldd r22, Z+4
 
 	; load coefficient 1
-	ldd r21, Z+12
-	ldd r20, Z+13
+	ldd r21, Z+13
+	ldd r20, Z+12
 
 	call mac16x16_24
 
 	;----------------------------------------;
 
 	; load node 0
-	ldd r23, Z+6
-	ldd r22, Z+7
+	ldd r23, Z+7
+	ldd r22, Z+6
 
 	; load coefficient 0
-	ldd r21, Z+14
-	ldd r20, Z+15
+	ldd r21, Z+15
+	ldd r20, Z+14
 
 	call mac16x16_24
 

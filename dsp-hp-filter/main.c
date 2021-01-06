@@ -41,8 +41,6 @@ int main(void)
 			myFilter.filterNodes[3] = (int16_t) sample_new - 512;
 	
 			calculate(&myFilter, &output);
-			
-			asm volatile("nop");
 		}
     }
 }
