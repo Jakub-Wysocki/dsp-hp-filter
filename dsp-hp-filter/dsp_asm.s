@@ -66,20 +66,15 @@
 
 	;----------------------------------------;
 
-	; output in r18, r17, r16
-	; start downscaling
+	; 24 bit signed output in r18, r17, r16
+
+	; start creating frame for 10 bit DAC
 	; drop r16
 	; add 32767: 16 bit signed -> 16 bit unsigned
 
 	call addi16
 
-	; start shifting to downscale to 10 bits unsigned
-	lsr r18
-	ror r17
-
-	lsr r18
-	ror r17
-
+	; start shifting data bits to correct position 
 	lsr r18
 	ror r17
 
@@ -92,8 +87,14 @@
 	lsr r18
 	ror r17
  
-	; end downscaling
-	; 10 bit output in r18:r17
+	; end shifting
+
+	; bit 15 (start transmission) already cleared due to lsr
+	; bit 13 (2x gain) already cleared due to lsr
+
+	sbr r18, 0b00010000 ; set bit 12 (active mode)
+
+	; end creating frame, outpit in r18:r17
 
 	st X+, r17
 	st X+, r18
