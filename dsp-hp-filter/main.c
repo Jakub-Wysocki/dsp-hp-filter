@@ -19,7 +19,7 @@ struct FIR_filter myFilter;
 volatile uint16_t sample_new;
 volatile uint8_t sample_pointer;
 volatile uint8_t sample_ready;
-int16_t output; // 10 bit output
+uint16_t output; // 10 bit output
 
 int main(void)
 {
@@ -34,12 +34,12 @@ int main(void)
 		if(sample_ready)
 		{
 			sample_ready = 0;
-			
+			sei();
 			myFilter.filterNodes[0] = myFilter.filterNodes[1];
 			myFilter.filterNodes[1] = myFilter.filterNodes[2];
 			myFilter.filterNodes[2] = myFilter.filterNodes[3];
 			myFilter.filterNodes[3] = (int16_t) sample_new - 512;
-	
+			
 			calculate(&myFilter, &output);
 		}
     }
