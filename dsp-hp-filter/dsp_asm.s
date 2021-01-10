@@ -66,31 +66,35 @@
 
 	;----------------------------------------;
 
-	; output in r18, r17, r16
+	; 24 bit signed output in r18, r17, r16
 
-	; start downscaling to 10 bits
-	; need to shift r18:r17 >> 6
+	; start creating frame for 10 bit DAC
+	; drop r16
+	; add 32767: 16 bit signed -> 16 bit unsigned
 
-	asr r18
+	call addi16
+
+	; start shifting data bits to correct position 
+	lsr r18
 	ror r17
 
-	asr r18
+	lsr r18
 	ror r17
 
-	asr r18
+	lsr r18
 	ror r17
 
-	asr r18
-	ror r17
-
-	asr r18
-	ror r17
-
-	asr r18
+	lsr r18
 	ror r17
  
-	; end downscaling
-	; 10 bit output in r18:r17
+	; end shifting
+
+	; bit 15 (start transmission) already cleared due to lsr
+	; bit 13 (2x gain) already cleared due to lsr
+
+	sbr r18, 0b00010000 ; set bit 12 (active mode)
+
+	; end creating frame, outpit in r18:r17
 
 	st X+, r17
 	st X+, r18
@@ -180,3 +184,41 @@ mac16x16_24:
 	adc	r18, r1
 
 	ret
+
+/*
+ * Additional subroutines
+ * Based on AVR202: 16-bit Arithmetics
+ * Original info:
+ *
+ * Title:		16-bit Arithmetics
+ * Version:		1.1
+ * Last updated:	97.07.04
+ * Target:		AT90Sxxxx (All AVR Devices)
+ *
+ */
+
+;***************************************************************************
+;* 
+;* "addi16" - Adding 16-bit register with immediate
+;*
+;* This example adds a register variable (addi1l,addi1h) with an 
+;* immediate 16-bit number defined with .equ-statement.   The result is
+;* placed in (addi1l, addi1h).
+;*
+;* Number of words	:2
+;* Number of cycles	:2
+;* Low registers used	:None
+;* High registers used	:2
+;*
+;* Note: The sum and the addend share the same register.  This causes the
+;* addend to be overwritten by the sum.
+;*
+;***************************************************************************
+
+;***** Code
+.func addi16
+addi16:
+	subi r17, lo8(-0x7FFF)	;Add low byte ( x -(-y)) = x + y
+	sbci r18, hi8(-0x7FFF)	;Add high byte with carry
+	ret
+

@@ -11,8 +11,6 @@
 
 #include "dsp.h"
 
-void calculate(struct FIR_filter *, int16_t *); // second argument is the output
-
-
+void calculate(struct FIR_filter *, uint16_t *); // second argument is the output
 
 #endif /* DSP_ASM_H_ */
