@@ -6,13 +6,15 @@
  */
 
 #include "dac.h"
+
 #include <avr/io.h>
-#define SPI_DDR DDRB //define(slave select low or high)
-#define SPI_PORT PORTB //define(sleve select on or off)
-#define SS      PINB2 //define(slave select input)
-#define MOSI    PINB3 //define(master output slave input)
-#define MISO    PINB4 //define(master input slave output)
-#define SCK     PINB5 //define(serial clock input)
+
+#define SPI_DDR		DDRB	// define(slave select low or high)
+#define SPI_PORT	PORTB	// define(slave select on or off)
+#define SS			PINB2	// define(slave select input)
+#define MOSI		PINB3	// define(master output slave input)
+#define MISO		PINB4	// define(master input slave output)
+#define SCK			PINB5	// define(serial clock input)
 
 void DACInit()
 {
@@ -22,7 +24,7 @@ void DACInit()
 	SPI_PORT |= (1 << SS); // dac off
 	
 	//SPCR - SPI control register
-    SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0); // SPE enable SPI, MSTR select master SPI, SPR0 set clock rate fck/16
+    SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPI2X); // SPE enable SPI, MSTR select master SPI, SPI2X set clock rate fck/2
 }
 
 void DACOutput(uint16_t data)

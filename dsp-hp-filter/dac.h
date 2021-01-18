@@ -8,12 +8,9 @@
 #include <avr/io.h>
 
 #ifndef DAC_H_
-#define DAC_H_
-
-// #define SDA_PIN 
+#define DAC_H_ 
 
 void DACInit();
 void DACOutput(uint16_t output);
-
 
 #endif /* DAC_H_ */

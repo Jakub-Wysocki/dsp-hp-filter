@@ -5,8 +5,9 @@
  * Created: 28.12.2020 22:28:35
  *  Author: kunek
  */
- .global calculate
- .func calculate
+
+.global calculate
+.func calculate
  calculate:
 	push r16
 	push r17
@@ -75,6 +76,7 @@
 	call addi16
 
 	; start shifting data bits to correct position 
+
 	lsr r18
 	ror r17
 
@@ -94,7 +96,7 @@
 
 	sbr r18, 0b00010000 ; set bit 12 (active mode)
 
-	; end creating frame, outpit in r18:r17
+	; end creating frame, output in r18:r17
 
 	st X+, r17
 	st X+, r18

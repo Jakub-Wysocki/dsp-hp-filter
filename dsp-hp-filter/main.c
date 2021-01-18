@@ -13,8 +13,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#define N 3
-
 struct FIR_filter myFilter;
 volatile uint16_t sample_new;
 volatile uint8_t sample_pointer;
@@ -31,10 +29,12 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-		if(sample_ready)
+		if(sample_ready)		// wait for sample
 		{
-			sample_ready = 0;
-			sei();
+			sample_ready = 0;	// ready for next sample
+
+			// shift samples in buffer and get new sample
+
 			myFilter.filterNodes[0] = myFilter.filterNodes[1];
 			myFilter.filterNodes[1] = myFilter.filterNodes[2];
 			myFilter.filterNodes[2] = myFilter.filterNodes[3];
